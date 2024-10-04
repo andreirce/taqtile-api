@@ -39,8 +39,8 @@ DevTile is a user management project designed as a CRUD (Create, Read, Update, D
     $ docker compose up -d
 
     #Run the application
-    $ npm run dev
+    $ npm start
 ```
 
-Now the application is running and ready for testing!
+Now the application is running and ready for testing! Thanks for testing!
 
