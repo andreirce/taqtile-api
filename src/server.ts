@@ -14,7 +14,7 @@ const app = express();
 async function bootstrap() {
   const schema = await buildSchema({
     resolvers: [HelloWorld, UserResolver],
-    emitSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    emitSchemaFile: join(process.cwd(), 'src/schema/schema.gql'),
   });
 
   const server = new ApolloServer({
