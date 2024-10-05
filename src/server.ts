@@ -7,12 +7,13 @@ import { expressMiddleware } from '@apollo/server/express4';
 import { buildSchema } from 'type-graphql';
 import { HelloWorld } from './resolvers/hello-world-resolver';
 import express from 'express';
+import { UserResolver } from './resolvers/user-resolver';
 
 const app = express();
 
 async function bootstrap() {
   const schema = await buildSchema({
-    resolvers: [HelloWorld],
+    resolvers: [HelloWorld, UserResolver],
     emitSchemaFile: join(process.cwd(), 'src/schema.gql'),
   });
 
