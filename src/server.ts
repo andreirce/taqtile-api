@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import path from 'node:path';
+import { join } from 'path';
 
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
@@ -13,7 +13,7 @@ const app = express();
 async function bootstrap() {
   const schema = await buildSchema({
     resolvers: [HelloWorld],
-    emitSchemaFile: path.resolve(__dirname, 'schema.gql'),
+    emitSchemaFile: join(process.cwd(), 'src/schema.gql'),
   });
 
   const server = new ApolloServer({
