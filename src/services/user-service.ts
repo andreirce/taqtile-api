@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { CreateUserInput } from '../inputs/user-input';
+import { UserInput } from '../inputs/user-input';
 
 const prisma = new PrismaClient();
 
@@ -15,7 +15,7 @@ export class UserService {
     });
   }
 
-  static async createUser(data: CreateUserInput) {
+  static async createUser(data: UserInput) {
     const user = await prisma.user.create({ data });
 
     delete user.password;
