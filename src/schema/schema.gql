@@ -29,5 +29,4 @@ type UserModel {
   email: String!
   id: String!
   name: String!
-  password: String!
 }

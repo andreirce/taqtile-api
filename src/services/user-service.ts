@@ -5,10 +5,21 @@ const prisma = new PrismaClient();
 
 export class UserService {
   static async findAllUsers() {
-    return await prisma.user.findMany();
+    return await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        birthDate: true,
+      },
+    });
   }
 
   static async createUser(data: CreateUserInput) {
-    return await prisma.user.create({ data });
+    const user = await prisma.user.create({ data });
+
+    delete user.password;
+
+    return user;
   }
 }
