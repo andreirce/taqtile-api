@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, Length, Matches, MaxDate, MinDate } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, Matches, MaxDate, MinDate, MinLength } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
 
 @InputType()
@@ -12,13 +12,14 @@ export class UserInput {
   email: string;
 
   @Field(() => String)
-  @Matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, {
+  @MinLength(6, { message: 'Senha deve ter pelo menos 6 caracteres.' })
+  @Matches(/^(?=.*[A-Za-z])(?=.*\d).+$/, {
     message: 'A senha deve conter pelo menos 1 letra e 1 número',
   })
-  @Length(6, undefined, { message: 'Senha deve ter pelo menos 6 caracteres.' })
   password: string;
 
   @Field(() => Date, { nullable: true })
+  @IsOptional()
   @MinDate(new Date('1900-01-01'), { message: 'A data de nascimento é muito antiga' })
   @MaxDate(new Date(), { message: 'A data de nascimento não pode ser futura' })
   birthDate?: Date;
