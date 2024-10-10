@@ -16,6 +16,14 @@ export class UserService {
   }
 
   static async createUser(data: UserInput) {
+    const existingUser = await prisma.user.findUnique({
+      where: { email: data.email },
+    });
+
+    if (existingUser) {
+      throw new Error('Já existe um usuário com este e-mail.');
+    }
+
     const user = await prisma.user.create({ data });
 
     delete user.password;
