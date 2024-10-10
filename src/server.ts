@@ -8,6 +8,7 @@ import { buildSchema } from 'type-graphql';
 import { HelloWorld } from './resolvers/hello-world-resolver';
 import express from 'express';
 import { UserResolver } from './resolvers/user-resolver';
+import { customFormatError } from './utils/errors';
 
 const app = express();
 
@@ -15,10 +16,13 @@ async function bootstrap() {
   const schema = await buildSchema({
     resolvers: [HelloWorld, UserResolver],
     emitSchemaFile: join(process.cwd(), 'src/schema/schema.gql'),
+    validate: true,
   });
 
   const server = new ApolloServer({
     schema,
+    includeStacktraceInErrorResponses: false,
+    formatError: customFormatError,
   });
 
   await server.start();
