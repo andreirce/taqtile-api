@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { UserInput } from '../inputs/user-input';
+import { UserAlreadyExistsException } from '../exceptions/user-already-exists-exception';
 
 const prisma = new PrismaClient();
 
@@ -21,7 +22,7 @@ export class UserService {
     });
 
     if (existingUser) {
-      throw new Error('Já existe um usuário com este e-mail.');
+      throw new UserAlreadyExistsException();
     }
 
     const user = await prisma.user.create({ data });

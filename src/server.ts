@@ -8,7 +8,7 @@ import { buildSchema } from 'type-graphql';
 import { HelloWorld } from './resolvers/hello-world-resolver';
 import express from 'express';
 import { UserResolver } from './resolvers/user-resolver';
-import { customFormatError } from './utils/errors';
+import { customFormatError } from './utils/custom-errors-handler';
 
 const app = express();
 
