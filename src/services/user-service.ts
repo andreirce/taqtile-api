@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { UserInput } from '../inputs/user-input';
 import { UserAlreadyExistsException } from '../exceptions/user-already-exists-exception';
-import { PasswordService } from './password-service';
+import { hashPassword } from '../utils/crypto';
 
 const prisma = new PrismaClient();
 
@@ -26,7 +26,7 @@ export class UserService {
       throw new UserAlreadyExistsException();
     }
 
-    const hashedPassword = await PasswordService.hashPassword(data.password);
+    const hashedPassword = await hashPassword(data.password);
     const user = await prisma.user.create({
       data: {
         ...data,
