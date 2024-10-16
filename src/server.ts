@@ -12,7 +12,7 @@ import { customFormatError } from './utils/custom-errors-handler';
 
 const app = express();
 
-async function bootstrap() {
+export async function bootstrap(port: number) {
   const schema = await buildSchema({
     resolvers: [HelloWorld, UserResolver],
     emitSchemaFile: join(process.cwd(), 'src/schema/schema.gql'),
@@ -29,7 +29,9 @@ async function bootstrap() {
 
   app.use('/graphql', express.json(), expressMiddleware(server));
 
-  app.listen(4000, () => console.log('Server running on: http://localhost:4000/graphql'));
+  app.listen(port, () => console.log(`Server running on: http://localhost:${port}/graphql`));
+
+  return server;
 }
 
-bootstrap();
+bootstrap(4000);
