@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx --watch src/server.ts",
     "start": "tsx src/server.ts",
-    "test": "dotenv -e .env.test -- npx mocha --require tsx 'test/**/*.ts'"
+    "test": "dotenv -e .env.test -- mocha --require tsx 'test/**/*.ts'"
   },
   "keywords": [],
   "author": "",
