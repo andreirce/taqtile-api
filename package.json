@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx --watch src/server.ts",
     "start": "tsx src/server.ts",
-    "test": "mocha --require tsx 'test/**/*.ts'"
+    "test": "dotenv -e .env.test -- mocha --require tsx 'test/**/*.ts'"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +35,8 @@
     "@types/sinon": "17.0.3",
     "axios": "1.7.7",
     "chai": "5.1.1",
+    "dotenv": "16.4.5",
+    "dotenv-cli": "7.4.2",
     "eslint": "9.11.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
