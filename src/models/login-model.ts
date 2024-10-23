@@ -3,9 +3,9 @@ import { UserModel } from './user-model';
 
 @ObjectType()
 export class LoginModel {
-  @Field()
+  @Field(() => UserModel)
   user: UserModel;
 
-  @Field()
+  @Field(() => String)
   token: string;
 }
