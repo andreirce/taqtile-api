@@ -8,8 +8,19 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTimeISO
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginModel {
+  token: String!
+  user: UserModel!
+}
+
 type Mutation {
   createUser(data: UserInput!): UserModel!
+  login(data: LoginInput!): LoginModel!
 }
 
 type Query {
