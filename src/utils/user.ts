@@ -20,7 +20,7 @@ export async function createUserForTest(userData: UserInput) {
   return response.data.data.createUser;
 }
 
-export async function loginUserForTest(email: string, password: string) {
+export async function loginUserForTest(email: string, password: string, rememberMe: boolean) {
   const loginUserMutation = `
       mutation Login($data: LoginInput!) {
         login(data: $data) {
@@ -34,7 +34,7 @@ export async function loginUserForTest(email: string, password: string) {
 
   const response = await axios.post('http://localhost:4001/graphql', {
     query: loginUserMutation,
-    variables: { data: { email, password } },
+    variables: { data: { email, password, rememberMe } },
   });
 
   return response.data;
