@@ -25,6 +25,8 @@ export async function loginUserForTest(email: string, password: string, remember
       mutation Login($data: LoginInput!) {
         login(data: $data) {
           user {
+            name
+            birthDate
             email
           }
           token

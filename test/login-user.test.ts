@@ -1,24 +1,23 @@
 import { describe, it, before } from 'mocha';
 import { expect } from 'chai';
 import { prisma } from './index';
-import { createUserForTest, loginUserForTest } from '../src/utils/user';
+import { loginUserForTest } from '../src/utils/user';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { hashPassword } from '../src/utils/crypto';
 
 describe('Login Test', () => {
   before(async () => {
     await prisma.user.deleteMany();
 
+    const hashedPassword = await hashPassword('teste123');
+
     const newUser = {
       name: 'teste1',
       email: 'teste1@gmail.com',
-      password: 'teste123',
+      password: hashedPassword,
     };
 
-    const createUserResponse = await createUserForTest(newUser);
-
-    expect(createUserResponse).to.have.property('id');
-    expect(createUserResponse).to.have.property('name');
-    expect(createUserResponse).to.have.property('email');
+    await prisma.user.create({ data: newUser });
   });
 
   it('Should successfully login with valid credentials', async () => {
@@ -26,6 +25,8 @@ describe('Login Test', () => {
 
     expect(loginResponse.data.login).to.have.property('token');
     expect(loginResponse.data.login.user.email).to.equal('teste1@gmail.com');
+    expect(loginResponse.data.login.user.name).to.equal('teste1');
+    expect(loginResponse.data.login.user.birthDate).to.equal(null);
   });
 
   it('Should not login with invalid email', async () => {
