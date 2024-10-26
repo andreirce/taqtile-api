@@ -13,6 +13,6 @@ export class LoginInput {
 
   @Field(() => Boolean, { nullable: true })
   @IsOptional()
-  @IsBoolean({ message: 'Este campo deve ser um valor Booleano' })
+  @IsBoolean({ message: 'Por favor, marque o campo "rememberMe" como verdadeiro ou falso.' })
   rememberMe?: boolean;
 }
