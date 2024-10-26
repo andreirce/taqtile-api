@@ -57,7 +57,7 @@ export class UserService {
       throw new LoginException();
     }
 
-    const token = generateToken(user.id, user.email, data.rememberMe);
+    const token = generateToken({ userId: user.id, email: user.email, rememberMe: data.rememberMe });
 
     return { user, token };
   }
