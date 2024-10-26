@@ -1,5 +1,5 @@
 import { describe, it, before } from 'mocha';
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 import { prisma } from './index';
 import { loginUserForTest } from '../src/utils/user';
 import jwt, { JwtPayload } from 'jsonwebtoken';
@@ -24,6 +24,11 @@ describe('Login Test', () => {
     const loginResponse = await loginUserForTest('teste1@gmail.com', 'teste123', false);
 
     expect(loginResponse.data.login).to.have.property('token');
+
+    const token = loginResponse.data.login.token;
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
+
+    expect(decodedToken).to.have.property('email', 'teste1@gmail.com');
     expect(loginResponse.data.login.user.email).to.equal('teste1@gmail.com');
     expect(loginResponse.data.login.user.name).to.equal('teste1');
     expect(loginResponse.data.login.user.birthDate).to.equal(null);
@@ -63,9 +68,9 @@ describe('Login Test', () => {
 
     expect(decodedToken).to.have.property('exp');
 
-    const expirationTime = 7 * 24 * 60 * 60;
-    const currentTime = Math.floor(Date.now() / 1000);
+    const expirationTime = Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60;
+    const marginError = 1;
 
-    expect(decodedToken.exp).to.be.greaterThan(currentTime + expirationTime - 0.001);
+    assert.approximately(decodedToken.exp, expirationTime, marginError);
   });
 });
