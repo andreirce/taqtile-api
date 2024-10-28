@@ -20,18 +20,6 @@ export class UserService {
     });
   }
 
-  static async findUserById(id: string) {
-    return await prisma.user.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        birthDate: true,
-      },
-    });
-  }
-
   static async createUser(data: UserInput) {
     const existingUser = await prisma.user.findUnique({
       where: { email: data.email },
