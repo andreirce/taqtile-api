@@ -36,7 +36,7 @@ export async function bootstrap(port: number) {
   );
 
   app.listen(port, () => {
-    console.log('Server running on: http://localhost:${port}/graphql');
+    console.log(`Server running on: http://localhost:${port}/graphql`);
   });
 
   return server;

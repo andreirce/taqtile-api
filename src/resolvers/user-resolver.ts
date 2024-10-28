@@ -5,6 +5,8 @@ import { UserService } from '../services/user-service';
 import { LoginModel } from '../models/login-model';
 import { LoginInput } from '../inputs/login-input';
 
+import { IsAuthenticated } from '../middlewares/auth-middleware';
+
 @Resolver()
 export class UserResolver {
   @Query(() => [UserModel])
@@ -12,6 +14,7 @@ export class UserResolver {
     return UserService.findAllUsers();
   }
 
+  @IsAuthenticated()
   @Mutation(() => UserModel)
   createUser(@Arg('data', () => UserInput) data: UserInput) {
     return UserService.createUser(data);
