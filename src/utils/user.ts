@@ -1,7 +1,26 @@
 import axios from 'axios';
 import { UserInput } from '../inputs/user-input';
+import { prisma } from '../../test';
 
-export async function createUserForTest(userData: UserInput) {
+export function createDefaultUser() {
+  return {
+    name: 'teste1',
+    email: 'teste1@gmail.com',
+    password: 'teste123',
+  };
+}
+
+export async function createAdminUser() {
+  const adminUser = {
+    name: 'admin',
+    email: 'admin@gmail.com',
+    password: 'admin123',
+  };
+
+  return await prisma.user.create({ data: adminUser });
+}
+
+export async function createUserForTest(userData: UserInput, token: string | null) {
   const createUserMutation = `
     mutation CreateUser($data: UserInput!) {
       createUser(data: $data) {
@@ -12,12 +31,22 @@ export async function createUserForTest(userData: UserInput) {
     }
   `;
 
-  const response = await axios.post('http://localhost:4001/graphql', {
-    query: createUserMutation,
-    variables: { data: userData },
-  });
+  const tokenAuthorization = token === null ? token : `bearer ${token}`;
 
-  return response.data.data.createUser;
+  const response = await axios.post(
+    'http://localhost:4001/graphql',
+    {
+      query: createUserMutation,
+      variables: { data: userData },
+    },
+    {
+      headers: {
+        Authorization: tokenAuthorization,
+      },
+    },
+  );
+
+  return { data: response.data.data?.createUser, errors: response.data.errors };
 }
 
 export async function loginUserForTest(email: string, password: string, rememberMe: boolean) {

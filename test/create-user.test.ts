@@ -1,17 +1,18 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { prisma } from './index';
-import { createUserForTest } from '../src/utils/user';
+import { createDefaultUser, createUserForTest } from '../src/utils/user';
+import { generateTokenForTest } from '../src/utils/jwt';
 
 describe('User creation', () => {
-  it('Verify whether the createUser mutation is able to create a user.', async () => {
-    const newUser = {
-      name: 'teste1',
-      email: 'teste1@gmail.com',
-      password: 'teste123',
-    };
+  beforeEach(async () => {
+    await prisma.user.deleteMany();
+  });
 
-    const createUserResponse = await createUserForTest(newUser);
+  it('Verify whether the createUser mutation is able to create a user.', async () => {
+    const newUser = createDefaultUser();
+    const token = await generateTokenForTest();
+    const { data: createUserResponse } = await createUserForTest(newUser, token);
 
     expect(createUserResponse).to.have.property('id');
     expect(createUserResponse).to.have.property('name');
@@ -28,5 +29,23 @@ describe('User creation', () => {
     expect(user?.email).to.be.equal(newUser.email);
     expect(user?.birthDate).to.be.equal(null);
     expect(user?.id).to.be.equal(createUserResponse.id);
+  });
+
+  it('should return an error when trying to create a user without a token', async () => {
+    const newUser = createDefaultUser();
+    const { errors: errorsResponse } = await createUserForTest(newUser, null);
+
+    expect(errorsResponse).to.be.an('array');
+    expect(errorsResponse[0].message).to.be.equal('O token não foi fornecido.');
+    expect(errorsResponse[0].code).to.be.equal(401);
+  });
+
+  it('should return an error when trying to create a user with an invalid token', async () => {
+    const newUser = createDefaultUser();
+    const { errors: errorsResponse } = await createUserForTest(newUser, '');
+
+    expect(errorsResponse).to.be.an('array');
+    expect(errorsResponse[0].message).to.be.equal('Acesso negado! Você não tem permissão para acessar este recurso.');
+    expect(errorsResponse[0].code).to.be.equal(401);
   });
 });
