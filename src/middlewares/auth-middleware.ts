@@ -9,7 +9,7 @@ const authHandler: MiddlewareFn<ExpressContext> = ({ context }, next) => {
   const authorization = context.req.headers?.authorization;
 
   if (!authorization) {
-    throw new UnauthorizedException('O token não foi fornecido.');
+    throw new UnauthorizedException('O token não foi fornecido ou está mal formatado.');
   }
 
   try {
@@ -18,7 +18,7 @@ const authHandler: MiddlewareFn<ExpressContext> = ({ context }, next) => {
 
     context.req.user = decoded;
   } catch {
-    throw new UnauthorizedException('Acesso negado! Você não tem permissão para acessar este recurso.');
+    throw new UnauthorizedException('Acesso negado! Token inválido ou expirado.');
   }
 
   return next();
