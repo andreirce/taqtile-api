@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { UserInput } from '../inputs/user-input';
-import { prisma } from '../../test';
 
 export function createDefaultUser() {
   return {
@@ -8,16 +7,6 @@ export function createDefaultUser() {
     email: 'teste1@gmail.com',
     password: 'teste123',
   };
-}
-
-export async function createAdminUser() {
-  const adminUser = {
-    name: 'admin',
-    email: 'admin@gmail.com',
-    password: 'admin123',
-  };
-
-  return await prisma.user.create({ data: adminUser });
 }
 
 export async function createUserForTest(userData: UserInput, token: string | null) {

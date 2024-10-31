@@ -2,7 +2,7 @@ import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { prisma } from './index';
 import { createDefaultUser, createUserForTest } from '../src/utils/user';
-import { generateTokenForTest } from '../src/utils/jwt';
+import { generateTokenForTest } from '../test/helpers/jwt-helpers';
 
 describe('User creation', () => {
   beforeEach(async () => {
@@ -36,7 +36,7 @@ describe('User creation', () => {
     const { errors: errorsResponse } = await createUserForTest(newUser, null);
 
     expect(errorsResponse).to.be.an('array');
-    expect(errorsResponse[0].message).to.be.equal('O token não foi fornecido.');
+    expect(errorsResponse[0].message).to.be.equal('O token não foi fornecido ou está mal formatado.');
     expect(errorsResponse[0].code).to.be.equal(401);
   });
 
@@ -45,7 +45,7 @@ describe('User creation', () => {
     const { errors: errorsResponse } = await createUserForTest(newUser, '');
 
     expect(errorsResponse).to.be.an('array');
-    expect(errorsResponse[0].message).to.be.equal('Acesso negado! Você não tem permissão para acessar este recurso.');
+    expect(errorsResponse[0].message).to.be.equal('Acesso negado! Token inválido ou expirado.');
     expect(errorsResponse[0].code).to.be.equal(401);
   });
 });
