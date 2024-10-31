@@ -1,8 +1,9 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { prisma } from './index';
-import { createDefaultUser, createUserForTest } from '../src/utils/user';
+import { createUserForTest } from '../src/utils/user';
 import { generateTokenForTest } from '../test/helpers/jwt-helpers';
+import { createDefaultUser } from './helpers/user-helper';
 
 describe('User creation', () => {
   beforeEach(async () => {

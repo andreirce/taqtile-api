@@ -1,14 +1,6 @@
 import axios from 'axios';
 import { UserInput } from '../inputs/user-input';
 
-export function createDefaultUser() {
-  return {
-    name: 'teste1',
-    email: 'teste1@gmail.com',
-    password: 'teste123',
-  };
-}
-
 export async function createUserForTest(userData: UserInput, token: string | null) {
   const createUserMutation = `
     mutation CreateUser($data: UserInput!) {
