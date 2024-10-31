@@ -1,9 +1,9 @@
 import { describe, it, before } from 'mocha';
 import { assert, expect } from 'chai';
 import { prisma } from './index';
-import { loginUserForTest } from '../src/utils/user';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { hashPassword } from '../src/utils/crypto';
+import { loginUserForTest } from './helpers/user-helper';
 
 describe('Login Test', () => {
   before(async () => {
