@@ -5,6 +5,7 @@ import { comparePassword, hashPassword } from '../utils/crypto';
 import { LoginInput } from '../inputs/login-input';
 import { generateToken } from '../utils/jwt';
 import { LoginException } from '../exceptions/login-exception';
+import { UserNotFoundException } from '../exceptions/user-not-found-exception';
 
 const prisma = new PrismaClient();
 
@@ -18,6 +19,18 @@ export class UserService {
         birthDate: true,
       },
     });
+  }
+
+  static async findUserById(id: string) {
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new UserNotFoundException();
+    }
+
+    return user;
   }
 
   static async createUser(data: UserInput) {
