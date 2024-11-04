@@ -10,6 +10,12 @@ export function createDefaultUser() {
   };
 }
 
+export const defaultUser = {
+  name: 'teste1',
+  email: 'teste1@gmail.com',
+  password: 'teste123',
+};
+
 export async function createAdminUser() {
   const adminUser = {
     name: 'admin',

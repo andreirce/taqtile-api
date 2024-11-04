@@ -2,7 +2,7 @@ import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { prisma } from './index';
 import { generateTokenForTest } from '../test/helpers/jwt-helpers';
-import { createDefaultUser, createUserForTest } from './helpers/user-helper';
+import { createUserForTest, defaultUser } from './helpers/user-helper';
 
 describe('User creation', () => {
   beforeEach(async () => {
@@ -10,9 +10,8 @@ describe('User creation', () => {
   });
 
   it('Verify whether the createUser mutation is able to create a user.', async () => {
-    const newUser = createDefaultUser();
     const token = await generateTokenForTest();
-    const { data: createUserResponse } = await createUserForTest(newUser, token);
+    const { data: createUserResponse } = await createUserForTest(defaultUser, token);
 
     expect(createUserResponse).to.have.property('id');
     expect(createUserResponse).to.have.property('name');
@@ -25,15 +24,14 @@ describe('User creation', () => {
     });
 
     expect(user).to.be.not.equal(null);
-    expect(user?.name).to.be.equal(newUser.name);
-    expect(user?.email).to.be.equal(newUser.email);
+    expect(user?.name).to.be.equal(createUserResponse.name);
+    expect(user?.email).to.be.equal(createUserResponse.email);
     expect(user?.birthDate).to.be.equal(null);
     expect(user?.id).to.be.equal(createUserResponse.id);
   });
 
   it('should return an error when trying to create a user without a token', async () => {
-    const newUser = createDefaultUser();
-    const { errors: errorsResponse } = await createUserForTest(newUser, null);
+    const { errors: errorsResponse } = await createUserForTest(defaultUser, null);
 
     expect(errorsResponse).to.be.an('array');
     expect(errorsResponse[0].message).to.be.equal('O token não foi fornecido ou está mal formatado.');
@@ -41,8 +39,7 @@ describe('User creation', () => {
   });
 
   it('should return an error when trying to create a user with an invalid token', async () => {
-    const newUser = createDefaultUser();
-    const { errors: errorsResponse } = await createUserForTest(newUser, '');
+    const { errors: errorsResponse } = await createUserForTest(defaultUser, '');
 
     expect(errorsResponse).to.be.an('array');
     expect(errorsResponse[0].message).to.be.equal('Acesso negado! Token inválido ou expirado.');
