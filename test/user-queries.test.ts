@@ -1,6 +1,6 @@
 import { beforeEach, describe } from 'mocha';
 import { prisma } from './index';
-import { createAdminUser, createDefaultUser, createUserForTest, queryUserById } from './helpers/user-helper';
+import { createAdminUser, createUserForTest, defaultUser, queryUserById } from './helpers/user-helper';
 import { generateTokenForTest } from './helpers/jwt-helpers';
 import { expect } from 'chai';
 
@@ -10,9 +10,8 @@ describe('Testing User Queries', () => {
   });
 
   it('should allow an authenticated user to use the FindUserById query', async () => {
-    const newUser = createDefaultUser();
     const token = await generateTokenForTest();
-    const { data: response } = await createUserForTest(newUser, token);
+    const { data: response } = await createUserForTest(defaultUser, token);
 
     const { data: query } = await queryUserById(response.id, token);
 
