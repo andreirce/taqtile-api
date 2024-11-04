@@ -5,6 +5,7 @@ import { UserAlreadyExistsException } from '../exceptions/user-already-exists-ex
 import { unwrapResolverError } from '@apollo/server/errors';
 import { LoginException } from '../exceptions/login-exception';
 import { UnauthorizedException } from '../exceptions/unauthorized-exception';
+import { UserNotFoundException } from '../exceptions/user-not-found-exception';
 
 function plainValidationErrors(errors: ValidationError[]): string[] {
   return errors.flatMap((item) => Object.values(item.constraints));
@@ -28,6 +29,13 @@ export function customFormatError(formattedError: GraphQLFormattedError, error: 
   }
 
   if (unwrappedError instanceof UnauthorizedException) {
+    return {
+      message: unwrappedError.message,
+      code: unwrappedError.statusCode,
+    };
+  }
+
+  if (unwrappedError instanceof UserNotFoundException) {
     return {
       message: unwrappedError.message,
       code: unwrappedError.statusCode,
