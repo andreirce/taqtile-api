@@ -2,14 +2,6 @@ import axios from 'axios';
 import { prisma } from '../index';
 import { UserInput } from '../../src/inputs/user-input';
 
-export function createDefaultUser() {
-  return {
-    name: 'teste1',
-    email: 'teste1@gmail.com',
-    password: 'teste123',
-  };
-}
-
 export const defaultUser = {
   name: 'teste1',
   email: 'teste1@gmail.com',
