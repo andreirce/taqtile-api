@@ -1,12 +1,12 @@
 import 'reflect-metadata';
+import express from 'express';
 
 import { join } from 'path';
-
+import { buildSchema } from 'type-graphql';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
-import { buildSchema } from 'type-graphql';
+
 import { HelloWorld } from './resolvers/hello-world-resolver';
-import express from 'express';
 import { UserResolver } from './resolvers/user-resolver';
 import { customFormatError } from './utils/custom-errors-handler';
 
@@ -27,9 +27,17 @@ export async function bootstrap(port: number) {
 
   await server.start();
 
-  app.use('/graphql', express.json(), expressMiddleware(server));
+  app.use(
+    '/graphql',
+    express.json(),
+    expressMiddleware(server, {
+      context: async ({ req }) => ({ req }),
+    }),
+  );
 
-  app.listen(port, () => console.log(`Server running on: http://localhost:${port}/graphql`));
+  app.listen(port, () => {
+    console.log(`Server running on: http://localhost:${port}/graphql`);
+  });
 
   return server;
 }

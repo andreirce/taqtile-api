@@ -1,17 +1,17 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { prisma } from './index';
-import { createUserForTest } from '../src/utils/user';
+import { generateTokenForTest } from '../test/helpers/jwt-helpers';
+import { createUserForTest, defaultUser } from './helpers/user-helper';
 
 describe('User creation', () => {
-  it('Verify whether the createUser mutation is able to create a user.', async () => {
-    const newUser = {
-      name: 'teste1',
-      email: 'teste1@gmail.com',
-      password: 'teste123',
-    };
+  beforeEach(async () => {
+    await prisma.user.deleteMany();
+  });
 
-    const createUserResponse = await createUserForTest(newUser);
+  it('Verify whether the createUser mutation is able to create a user.', async () => {
+    const token = await generateTokenForTest();
+    const { data: createUserResponse } = await createUserForTest(defaultUser, token);
 
     expect(createUserResponse).to.have.property('id');
     expect(createUserResponse).to.have.property('name');
@@ -24,9 +24,25 @@ describe('User creation', () => {
     });
 
     expect(user).to.be.not.equal(null);
-    expect(user?.name).to.be.equal(newUser.name);
-    expect(user?.email).to.be.equal(newUser.email);
+    expect(user?.name).to.be.equal(createUserResponse.name);
+    expect(user?.email).to.be.equal(createUserResponse.email);
     expect(user?.birthDate).to.be.equal(null);
     expect(user?.id).to.be.equal(createUserResponse.id);
+  });
+
+  it('should return an error when trying to create a user without a token', async () => {
+    const { errors: errorsResponse } = await createUserForTest(defaultUser, null);
+
+    expect(errorsResponse).to.be.an('array');
+    expect(errorsResponse[0].message).to.be.equal('O token não foi fornecido ou está mal formatado.');
+    expect(errorsResponse[0].code).to.be.equal(401);
+  });
+
+  it('should return an error when trying to create a user with an invalid token', async () => {
+    const { errors: errorsResponse } = await createUserForTest(defaultUser, '');
+
+    expect(errorsResponse).to.be.an('array');
+    expect(errorsResponse[0].message).to.be.equal('Acesso negado! Token inválido ou expirado.');
+    expect(errorsResponse[0].code).to.be.equal(401);
   });
 });
