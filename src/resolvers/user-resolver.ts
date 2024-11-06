@@ -15,6 +15,12 @@ export class UserResolver {
   }
 
   @IsAuthenticated()
+  @Query(() => UserModel)
+  user(@Arg('id', () => String) id: string) {
+    return UserService.findUserById(id);
+  }
+
+  @IsAuthenticated()
   @Mutation(() => UserModel)
   createUser(@Arg('data', () => UserInput) data: UserInput) {
     return UserService.createUser(data);

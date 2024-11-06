@@ -26,6 +26,7 @@ type Mutation {
 
 type Query {
   HelloWorld: String!
+  user(id: String!): UserModel!
   users: [UserModel!]!
 }
 

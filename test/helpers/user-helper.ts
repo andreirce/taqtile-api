@@ -68,3 +68,32 @@ export async function loginUserForTest(email: string, password: string, remember
 
   return response.data;
 }
+
+export async function queryUserById(id: string, token: string | null) {
+  const query = `
+  query User($id: String!) {
+  user(id: $id) {
+    id
+    name
+    email
+    birthDate
+  }
+}
+  `;
+  const tokenAuthorization = token === null ? token : `bearer ${token}`;
+
+  const response = await axios.post(
+    'http://localhost:4001/graphql',
+    {
+      query: query,
+      variables: { id },
+    },
+    {
+      headers: {
+        Authorization: tokenAuthorization,
+      },
+    },
+  );
+
+  return { data: response.data.data?.user, errors: response.data.errors };
+}
