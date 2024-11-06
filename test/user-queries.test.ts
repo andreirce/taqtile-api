@@ -15,11 +15,6 @@ describe('Testing User Queries', () => {
 
     const { data: query } = await queryUserById(response.id, token);
 
-    expect(query).to.have.property('id');
-    expect(query).to.have.property('name');
-    expect(query).to.have.property('email');
-    expect(query).to.have.property('birthDate');
-
     expect(query.id).to.be.equal(response.id);
     expect(query.name).to.be.equal(response.name);
     expect(query.email).to.be.equal(response.email);
