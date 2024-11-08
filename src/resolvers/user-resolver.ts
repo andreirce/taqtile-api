@@ -6,12 +6,15 @@ import { LoginModel } from '../models/login-model';
 import { LoginInput } from '../inputs/login-input';
 
 import { IsAuthenticated } from '../middlewares/auth-middleware';
+import { UsersDetailsInput } from '../inputs/users-details-input';
+import { PaginatedUsersModel } from '../models/paginated-users-model';
 
 @Resolver()
 export class UserResolver {
-  @Query(() => [UserModel])
-  users() {
-    return UserService.findAllUsers();
+  @IsAuthenticated()
+  @Query(() => PaginatedUsersModel)
+  users(@Arg('data', () => UsersDetailsInput, { nullable: true }) data?: UsersDetailsInput) {
+    return UserService.findAllUsers(data);
   }
 
   @IsAuthenticated()

@@ -6,19 +6,35 @@ import { LoginInput } from '../inputs/login-input';
 import { generateToken } from '../utils/jwt';
 import { LoginException } from '../exceptions/login-exception';
 import { UserNotFoundException } from '../exceptions/user-not-found-exception';
+import { UsersDetailsInput } from '../inputs/users-details-input';
 
 const prisma = new PrismaClient();
 
 export class UserService {
-  static async findAllUsers() {
-    return await prisma.user.findMany({
+  static async findAllUsers(data: UsersDetailsInput) {
+    const limit = data?.limit ?? 10;
+    const skip = data?.skip ?? 0;
+
+    const totalUsers = await prisma.user.count();
+
+    const users = await prisma.user.findMany({
       select: {
         id: true,
         name: true,
         email: true,
         birthDate: true,
       },
+      skip,
+      take: limit,
+      orderBy: {
+        name: 'asc',
+      },
     });
+
+    const moreBefore = skip > 0;
+    const moreAfter = skip + users.length < totalUsers;
+
+    return { users, moreAfter, moreBefore };
   }
 
   static async findUserById(id: string) {
