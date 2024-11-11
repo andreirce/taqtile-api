@@ -12,10 +12,13 @@ const prisma = new PrismaClient();
 
 export class UserService {
   static async findAllUsers(data: UsersDetailsInput) {
+    let skip = 0;
     const limit = data?.limit ?? 10;
-    const skip = data?.skip ?? 0;
+    const page = data?.page ?? 1;
 
-    const totalUsers = await prisma.user.count();
+    if (limit && page) {
+      skip = limit * (page - 1);
+    }
 
     const users = await prisma.user.findMany({
       select: {
@@ -30,6 +33,8 @@ export class UserService {
         name: 'asc',
       },
     });
+
+    const totalUsers = await prisma.user.count();
 
     const moreBefore = skip > 0;
     const moreAfter = skip + users.length < totalUsers;

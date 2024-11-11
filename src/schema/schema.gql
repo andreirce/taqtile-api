@@ -52,5 +52,5 @@ type UserModel {
 
 input UsersDetailsInput {
   limit: Float
-  skip: Float
+  page: Float
 }
