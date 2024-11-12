@@ -24,10 +24,16 @@ type Mutation {
   login(data: LoginInput!): LoginModel!
 }
 
+type PaginatedUsersModel {
+  moreAfter: Boolean!
+  moreBefore: Boolean!
+  users: [UserModel!]!
+}
+
 type Query {
   HelloWorld: String!
   user(id: String!): UserModel!
-  users: [UserModel!]!
+  users(data: UsersDetailsInput): PaginatedUsersModel!
 }
 
 input UserInput {
@@ -42,4 +48,9 @@ type UserModel {
   email: String!
   id: String!
   name: String!
+}
+
+input UsersDetailsInput {
+  limit: Float
+  page: Float
 }

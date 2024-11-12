@@ -47,6 +47,7 @@ export function customFormatError(formattedError: GraphQLFormattedError, error: 
 
     return {
       message: formattedError.message,
+      code: 400,
       extensions: {
         invalidInputs: plainValidationErrors(validationErrors as ValidationError[]),
       },

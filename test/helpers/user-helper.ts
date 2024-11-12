@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { prisma } from '../index';
 import { UserInput } from '../../src/inputs/user-input';
+import { UsersDetailsInput } from '../../src/inputs/users-details-input';
 
 export const defaultUser = {
   name: 'teste1',
@@ -96,4 +97,38 @@ export async function queryUserById(id: string, token: string | null) {
   );
 
   return { data: response.data.data?.user, errors: response.data.errors };
+}
+
+export async function queryAllUsers(pageData: UsersDetailsInput, token: string | null) {
+  const query = `
+  query Query($data: UsersDetailsInput) {
+    users(data: $data) {
+      users {
+        id
+        name
+        email
+        birthDate
+      }
+      moreAfter
+      moreBefore
+    }
+  }
+`;
+
+  const tokenAuthorization = token === null ? token : `bearer ${token}`;
+
+  const response = await axios.post(
+    'http://localhost:4001/graphql',
+    {
+      query: query,
+      variables: { data: { page: pageData.page, limit: pageData.limit } },
+    },
+    {
+      headers: {
+        Authorization: tokenAuthorization,
+      },
+    },
+  );
+
+  return { data: response.data.data?.users, errors: response.data.errors };
 }
