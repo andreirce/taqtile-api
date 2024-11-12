@@ -26,6 +26,7 @@ export class UserService {
         name: true,
         email: true,
         birthDate: true,
+        address: true,
       },
       skip,
       take: limit,
@@ -45,6 +46,7 @@ export class UserService {
   static async findUserById(id: string) {
     const user = await prisma.user.findUnique({
       where: { id },
+      include: { address: true },
     });
 
     if (!user) {
@@ -69,6 +71,7 @@ export class UserService {
         ...data,
         password: hashedPassword,
       },
+      include: { address: true },
     });
 
     delete user.password;
