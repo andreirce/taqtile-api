@@ -10,7 +10,7 @@ const defaultAddress = {
   cep: '12345-678',
 };
 
-export async function createAddress(userId: string) {
+export async function createAddress(userId: string, token: string | null) {
   const addressMutation = `
     mutation CreateAddress($data: AddressInput!) {
         createAddress(data: $data) {
@@ -26,10 +26,22 @@ export async function createAddress(userId: string) {
     }
 `;
 
-  const response = await axios.post('http://localhost:4001/graphql', {
-    query: addressMutation,
-    variables: { data: { ...defaultAddress, userId } },
-  });
+  const tokenAuthorization = token === null ? token : `bearer ${token}`;
+
+  const response = await axios.post(
+    'http://localhost:4001/graphql',
+    {
+      query: addressMutation,
+      variables: { data: { ...defaultAddress, userId } },
+    },
+    {
+      headers: {
+        Authorization: tokenAuthorization,
+      },
+    },
+  );
+
+  console.log('response', response.data);
 
   return { data: response.data.data?.createAddress, errors: response.data.errors };
 }
