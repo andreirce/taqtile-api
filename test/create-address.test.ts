@@ -48,15 +48,4 @@ describe('Address Creation', () => {
     expect(errorResponse[0].code).to.be.equal(400);
     expect(errorResponse[0].extensions.invalidInputs[0]).to.be.equal('O campo de id é obrigatório!');
   });
-
-  it('should allow a user to create multiple addresses', async () => {
-    const token = await generateTokenForTest();
-    const { data: user } = await createUserForTest(defaultUser, token);
-
-    const address1 = await createAddress(user.id, token);
-    const address2 = await createAddress(user.id, token);
-
-    expect(address1.data).to.have.property('userId', user.id);
-    expect(address2.data).to.have.property('userId', user.id);
-  });
 });

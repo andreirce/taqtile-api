@@ -34,10 +34,15 @@ describe('testing users query', () => {
 
     const filteredUsers = response.users.filter((user: { name: string }) => user.name !== 'admin');
 
-    filteredUsers.forEach((user: { name: string; email: string }, index: number) => {
-      expect(user.name).to.be.equal(`user ${index}`);
-      expect(user.email).to.be.equal(`user${index}@gmail.com`);
-    });
+    for (let i = 0; i < filteredUsers.length; i++) {
+      const user = filteredUsers[i];
+
+      expect(user.name).to.be.equal(`user ${i}`);
+      expect(user.email).to.be.equal(`user${i}@gmail.com`);
+      expect(user.birthDate).to.be.equal('2005-05-21T12:34:56.789Z');
+      expect(user).to.have.property('address');
+      expect(user.address.length).to.be.equal(0);
+    }
   });
 
   it('should return validation error when an invalid number is provided for pagination', async () => {

@@ -19,8 +19,9 @@ describe('Testing User Queries', () => {
     expect(query.name).to.be.equal(response.name);
     expect(query.email).to.be.equal(response.email);
     expect(query.birthDate).to.be.equal(null);
+    expect(query.address).to.be.an('array');
+    expect(query.address.length).to.be.equal(0);
   });
-
   it('should verify that an authenticated user tries to insert an invalid ID', async () => {
     const token = await generateTokenForTest();
 

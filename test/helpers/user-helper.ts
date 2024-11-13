@@ -26,6 +26,17 @@ export async function createUserForTest(userData: UserInput, token: string | nul
           id
           name
           email
+          address {
+            city
+            cep
+            complement
+            id
+            neighborhood
+            state
+            street
+            streetNumber
+            userId
+          }
         }
       }
     `;
@@ -78,6 +89,17 @@ export async function queryUserById(id: string, token: string | null) {
     name
     email
     birthDate
+     address {
+        city
+        cep
+        complement
+        id
+        neighborhood
+        state
+        street
+        streetNumber
+        userId
+     }
   }
 }
   `;
@@ -108,6 +130,17 @@ export async function queryAllUsers(pageData: UsersDetailsInput, token: string |
         name
         email
         birthDate
+        address {
+        city
+        cep
+        complement
+        id
+        neighborhood
+        state
+        street
+        streetNumber
+        userId
+     }
       }
       moreAfter
       moreBefore
