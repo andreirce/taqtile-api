@@ -1,7 +1,7 @@
 import { beforeEach, describe, it } from 'mocha';
 import { prisma } from './index';
 import { generateTokenForTest } from './helpers/jwt-helpers';
-import { createUserForTest, defaultUser } from './helpers/user-helper';
+import { createUserForTest, createUserInDb, defaultUser } from './helpers/user-helper';
 import { createAddress, defaultAddress } from './helpers/address-helper';
 import { expect } from 'chai';
 
@@ -13,7 +13,7 @@ describe('Address Creation', () => {
 
   it('should return all the correct fields when creating an address', async () => {
     const token = await generateTokenForTest();
-    const { data: user } = await createUserForTest(defaultUser, token);
+    const user = await createUserInDb(defaultUser);
 
     const { data: addressResponse } = await createAddress(user.id, token);
 
