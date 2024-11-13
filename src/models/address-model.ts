@@ -3,6 +3,9 @@ import { Field, ObjectType } from 'type-graphql';
 @ObjectType()
 export class AddressModel {
   @Field(() => String)
+  id: string;
+
+  @Field(() => String)
   cep: string;
 
   @Field(() => String)
