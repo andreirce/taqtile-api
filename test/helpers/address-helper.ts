@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const defaultAddress = {
+export const defaultAddress = {
   streetNumber: 22,
   street: 'Rua teste',
   state: 'Bahia',
@@ -14,6 +14,7 @@ export async function createAddress(userId: string, token: string | null) {
   const addressMutation = `
     mutation CreateAddress($data: AddressInput!) {
         createAddress(data: $data) {
+            id
             userId
             streetNumber
             street
@@ -40,8 +41,6 @@ export async function createAddress(userId: string, token: string | null) {
       },
     },
   );
-
-  console.log('response', response.data);
 
   return { data: response.data.data?.createAddress, errors: response.data.errors };
 }
