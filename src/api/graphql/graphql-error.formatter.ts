@@ -1,11 +1,11 @@
 import { ValidationError } from 'class-validator';
 import { GraphQLFormattedError } from 'graphql';
 import { ApolloServerErrorCode } from '@apollo/server/errors';
-import { UserAlreadyExistsException } from '../../core/error/user-already-exists-exception';
+import { UserAlreadyExistsError } from '../../core/error/user-already-exists-error';
 import { unwrapResolverError } from '@apollo/server/errors';
-import { LoginException } from '../../core/error/login-exception';
-import { UnauthorizedException } from '../../core/error/unauthorized-exception';
-import { UserNotFoundException } from '../../core/error/user-not-found-exception';
+import { LoginError } from '../../core/error/login-error';
+import { UnauthorizedError } from '../../core/error/unauthorized-error';
+import { UserNotFoundError } from '../../core/error/user-not-found-error';
 
 function plainValidationErrors(errors: ValidationError[]): string[] {
   return errors.flatMap((item) => Object.values(item.constraints));
@@ -14,28 +14,28 @@ function plainValidationErrors(errors: ValidationError[]): string[] {
 export function customFormatError(formattedError: GraphQLFormattedError, error: unknown) {
   const unwrappedError = unwrapResolverError(error);
 
-  if (unwrappedError instanceof UserAlreadyExistsException) {
+  if (unwrappedError instanceof UserAlreadyExistsError) {
     return {
       message: unwrappedError.message,
       code: unwrappedError.statusCode,
     };
   }
 
-  if (unwrappedError instanceof LoginException) {
+  if (unwrappedError instanceof LoginError) {
     return {
       message: unwrappedError.message,
       code: unwrappedError.statusCode,
     };
   }
 
-  if (unwrappedError instanceof UnauthorizedException) {
+  if (unwrappedError instanceof UnauthorizedError) {
     return {
       message: unwrappedError.message,
       code: unwrappedError.statusCode,
     };
   }
 
-  if (unwrappedError instanceof UserNotFoundException) {
+  if (unwrappedError instanceof UserNotFoundError) {
     return {
       message: unwrappedError.message,
       code: unwrappedError.statusCode,

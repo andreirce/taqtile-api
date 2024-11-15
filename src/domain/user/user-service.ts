@@ -1,11 +1,11 @@
 import { PrismaClient } from '@prisma/client';
 import { UserInput } from '../../api/graphql/modules/user/input/user-input';
-import { UserAlreadyExistsException } from '../../core/error/user-already-exists-exception';
+import { UserAlreadyExistsError } from '../../core/error/user-already-exists-error';
 import { comparePassword, hashPassword } from '../../core/security/crypto/crypto';
 import { LoginInput } from '../../api/graphql/modules/user/input/login-input';
 import { generateToken } from '../../core/security/jwt/jwt';
-import { LoginException } from '../../core/error/login-exception';
-import { UserNotFoundException } from '../../core/error/user-not-found-exception';
+import { LoginError } from '../../core/error/login-error';
+import { UserNotFoundError } from '../../core/error/user-not-found-error';
 import { UsersDetailsInput } from '../../api/graphql/modules/user/input/users-details-input';
 
 const prisma = new PrismaClient();
@@ -50,7 +50,7 @@ export class UserService {
     });
 
     if (!user) {
-      throw new UserNotFoundException();
+      throw new UserNotFoundError();
     }
 
     return user;
@@ -62,7 +62,7 @@ export class UserService {
     });
 
     if (existingUser) {
-      throw new UserAlreadyExistsException();
+      throw new UserAlreadyExistsError();
     }
 
     const hashedPassword = await hashPassword(data.password);
@@ -85,13 +85,13 @@ export class UserService {
     });
 
     if (!user) {
-      throw new LoginException();
+      throw new LoginError();
     }
 
     const validPassword = await comparePassword(data.password, user.password);
 
     if (!validPassword) {
-      throw new LoginException();
+      throw new LoginError();
     }
 
     const token = generateToken({ userId: user.id, email: user.email, rememberMe: data.rememberMe });

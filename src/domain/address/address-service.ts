@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { AddressInput } from '../../api/graphql/modules/address/input/address-input';
-import { UserNotFoundException } from '../../core/error/user-not-found-exception';
+import { UserNotFoundError } from '../../core/error/user-not-found-error';
 
 const prisma = new PrismaClient();
 
@@ -13,7 +13,7 @@ export class AddressService {
     const user = await prisma.user.findUnique({ where: { id: userId } });
 
     if (!user) {
-      throw new UserNotFoundException();
+      throw new UserNotFoundError();
     }
 
     return await prisma.address.findMany({ where: { userId } });
