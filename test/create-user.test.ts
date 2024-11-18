@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { prisma } from './index';
 import { generateTokenForTest } from '../test/helpers/jwt-helpers';
 import { createUserForTest, defaultUser } from './helpers/user-helper';
-import { createAddress } from './helpers/address-helper';
+import { createAddress, defaultAddress } from './helpers/address-helper';
 
 describe('User creation', () => {
   beforeEach(async () => {
@@ -54,11 +54,22 @@ describe('User creation', () => {
     const token = await generateTokenForTest();
     const { data: user } = await createUserForTest(defaultUser, token);
 
-    const address1 = await createAddress(user.id, token);
-    const address2 = await createAddress(user.id, token);
+    const address1 = await prisma.address.create({
+      data: {
+        ...defaultAddress,
+        userId: user.id,
+      },
+    });
 
-    expect(address1.data).to.have.property('userId', user.id);
-    expect(address2.data).to.have.property('userId', user.id);
+    const address2 = await prisma.address.create({
+      data: {
+        ...defaultAddress,
+        userId: user.id,
+      },
+    });
+
+    expect(address1).to.have.property('userId', user.id);
+    expect(address2).to.have.property('userId', user.id);
   });
 
   it('should return an error when trying to create a user without a token', async () => {
