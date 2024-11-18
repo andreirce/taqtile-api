@@ -1,9 +1,10 @@
 import { Field, ObjectType } from 'type-graphql';
-import { AddressModel } from '../../../../../domain/model/address-model';
+import { UserModel } from '../../../../../domain/model/user-model';
+import { Address } from '../../address/type/address-type';
 
 //Extends de user model e vai se chamar user, user model será uma inteface
 @ObjectType()
-export class UserModel {
+export class User implements UserModel {
   @Field(() => String)
   id: string;
 
@@ -16,6 +17,6 @@ export class UserModel {
   @Field(() => Date, { nullable: true })
   birthDate: Date;
 
-  @Field(() => [AddressModel], { nullable: true })
-  address: AddressModel[];
+  @Field(() => [Address], { nullable: true })
+  address: Address[];
 }

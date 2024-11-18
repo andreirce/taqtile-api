@@ -1,11 +1,6 @@
-import { Field, ObjectType } from 'type-graphql';
-import { UserModel } from '../../api/graphql/modules/user/type/user-type';
+import { UserModel } from './user-model';
 
-@ObjectType()
-export class LoginModel {
-  @Field(() => UserModel)
+export interface LoginModel {
   user: UserModel;
-
-  @Field(() => String)
   token: string;
 }

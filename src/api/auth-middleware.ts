@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { MiddlewareFn, createMethodMiddlewareDecorator } from 'type-graphql';
 import { UnauthorizedError } from '../core/error/unauthorized-error';
 import { ExpressContext } from '../domain/model/express-context-model';
-import { User } from '../domain/model/user-model';
+import { UserModel } from '../domain/model/user-model';
 
 const authHandler: MiddlewareFn<ExpressContext> = ({ context }, next) => {
   const authorization = context.req.headers?.authorization;
@@ -14,7 +14,7 @@ const authHandler: MiddlewareFn<ExpressContext> = ({ context }, next) => {
 
   try {
     const token = authorization.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET) as User;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET) as UserModel;
 
     context.req.user = decoded;
   } catch {
