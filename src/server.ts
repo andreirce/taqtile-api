@@ -9,12 +9,13 @@ import { expressMiddleware } from '@apollo/server/express4';
 import { HelloWorld } from './resolvers/hello-world-resolver';
 import { UserResolver } from './resolvers/user-resolver';
 import { customFormatError } from './utils/custom-errors-handler';
+import { AddressResolver } from './resolvers/address-resolver';
 
 const app = express();
 
 export async function bootstrap(port: number) {
   const schema = await buildSchema({
-    resolvers: [HelloWorld, UserResolver],
+    resolvers: [HelloWorld, UserResolver, AddressResolver],
     emitSchemaFile: join(process.cwd(), 'src/schema/schema.gql'),
     validate: true,
   });
