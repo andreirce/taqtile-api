@@ -1,8 +1,9 @@
 import { IsEmail, IsNotEmpty, IsOptional, Matches, MaxDate, MinDate, MinLength } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
+import { UserInputModel } from '../../../../../domain/model/user-model';
 
 @InputType()
-export class UserInput {
+export class UserInput implements UserInputModel {
   @Field(() => String)
   @IsNotEmpty({ message: 'O nome é obrigatório!' })
   name: string;

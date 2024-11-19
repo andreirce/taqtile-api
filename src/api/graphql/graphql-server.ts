@@ -10,6 +10,7 @@ import { HelloWorld } from './modules/hello-world-resolver';
 import { UserResolver } from './modules/user/user-resolver';
 import { customFormatError } from './graphql-error.formatter';
 import { AddressResolver } from './modules/address/address-resolver';
+import Container from 'typedi';
 
 const app = express();
 
@@ -18,6 +19,7 @@ export async function bootstrap(port: number) {
     resolvers: [HelloWorld, UserResolver, AddressResolver],
     emitSchemaFile: join(process.cwd(), 'src/api/graphql/schema.gql'),
     validate: true,
+    container: Container,
   });
 
   const server = new ApolloServer({

@@ -4,3 +4,15 @@ export interface UserModel {
   email: string;
   birthDate: Date;
 }
+
+export interface UserDetailsModel {
+  limit?: number;
+  page?: number;
+}
+
+export interface UserInputModel {
+  name: string;
+  email: string;
+  password: string;
+  bitrhDate?: string;
+}

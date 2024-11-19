@@ -3,10 +3,11 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-input AddressInput {
+type Address {
   cep: String!
   city: String!
   complement: String
+  id: String!
   neighborhood: String!
   state: String!
   street: String!
@@ -14,11 +15,10 @@ input AddressInput {
   userId: String!
 }
 
-type AddressModel {
+input AddressInput {
   cep: String!
   city: String!
   complement: String
-  id: String!
   neighborhood: String!
   state: String!
   street: String!
@@ -31,34 +31,41 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTimeISO
 
+type Login {
+  token: String!
+  user: User!
+}
+
 input LoginInput {
   email: String!
   password: String!
   rememberMe: Boolean
 }
 
-type LoginModel {
-  token: String!
-  user: UserModel!
-}
-
 type Mutation {
-  createAddress(data: AddressInput!): AddressModel!
-  createUser(data: UserInput!): UserModel!
-  login(data: LoginInput!): LoginModel!
-}
-
-type PaginatedUsersModel {
-  moreAfter: Boolean!
-  moreBefore: Boolean!
-  users: [UserModel!]!
+  createAddress(data: AddressInput!): Address!
+  createUser(data: UserInput!): User!
+  login(data: LoginInput!): Login!
 }
 
 type Query {
   HelloWorld: String!
-  findAddressByUserId(userId: String!): [AddressModel!]!
-  user(id: String!): UserModel!
-  users(data: UsersDetailsInput): PaginatedUsersModel!
+  findAddressByUserId(userId: String!): [Address!]!
+  user(id: String!): User!
+  users(data: UserDetailsInput): UsersPaginatedModel!
+}
+
+type User {
+  address: [Address!]
+  birthDate: DateTimeISO
+  email: String!
+  id: String!
+  name: String!
+}
+
+input UserDetailsInput {
+  limit: Float
+  page: Float
 }
 
 input UserInput {
@@ -68,15 +75,8 @@ input UserInput {
   password: String!
 }
 
-type UserModel {
-  address: [AddressModel!]
-  birthDate: DateTimeISO
-  email: String!
-  id: String!
-  name: String!
-}
-
-input UsersDetailsInput {
-  limit: Float
-  page: Float
+type UsersPaginatedModel {
+  moreAfter: Boolean!
+  moreBefore: Boolean!
+  users: [User!]!
 }

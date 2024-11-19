@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx --watch src/server.ts",
+    "dev": "tsx --watch src/api/graphql/graphql-server.ts",
     "start": "tsx src/server.ts",
     "test": "dotenv -e .env.test -- mocha --require tsx 'test/**/*.ts'",
     "seed": "dotenv -e .env.test -- tsx src/utils/seed.ts"
@@ -26,7 +26,8 @@
     "jsonwebtoken": "9.0.2",
     "reflect-metadata": "0.2.2",
     "ruru": "2.0.0-beta.13",
-    "type-graphql": "2.0.0-rc.2"
+    "type-graphql": "2.0.0-rc.2",
+    "typedi": "0.10.0"
   },
   "devDependencies": {
     "@eslint/js": "9.11.1",

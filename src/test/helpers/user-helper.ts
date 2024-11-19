@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { prisma } from '../index';
 import { UserInput } from '../../api/graphql/modules/user/input/user-input';
-import { UsersDetailsInput } from '../../api/graphql/modules/user/input/users-details-input';
+import { UserDetailsInput } from '../../api/graphql/modules/user/input/users-details-input';
 
 export const defaultUser = {
   name: 'teste1',
@@ -125,7 +125,7 @@ export async function queryUserById(id: string, token: string | null) {
   return { data: response.data.data?.user, errors: response.data.errors };
 }
 
-export async function queryAllUsers(pageData: UsersDetailsInput, token: string | null) {
+export async function queryAllUsers(pageData: UserDetailsInput, token: string | null) {
   const query = `
   query Query($data: UsersDetailsInput) {
     users(data: $data) {
