@@ -1,6 +1,6 @@
 import { Service } from 'typedi';
-import { UserDbDataSource } from '../../data/user/user-db-datasource';
-import { UserDetailsModel } from '../model/user-model';
+import { UserDbDataSource } from '@data/user/user-db-datasource';
+import { UserDetailsModel } from '@domain/model';
 
 @Service()
 export class FindAllUsersUseCase {

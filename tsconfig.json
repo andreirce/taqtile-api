@@ -9,17 +9,18 @@
     "strict": true,                                      
     "strictNullChecks": false,                       
     "skipLibCheck": true,
+    "baseUrl": "./src",
     "paths": {
       "@core": ["./core"],
-      "@core/": ["./core/*"],
+      "@core/*": ["./core/*"],
       "@data": ["./data"],
-      "@data/": ["./data/*"],
+      "@data/*": ["./data/*"],
       "@domain": ["./domain"],
-      "@domain/": ["./domain/*"],
+      "@domain/*": ["./domain/*"],
       "@graphql": ["./api/graphql"],
-      "@graphql/": ["./api/graphql/*"],
-      "@test": ["./test*"],
-      "@test/": ["./test/*"],
+      "@graphql/*": ["./api/graphql/*"],
+      "@test": ["./test"],
+      "@test/*": ["./test/*"],
     }
   }
 }

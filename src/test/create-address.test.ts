@@ -1,9 +1,7 @@
 import { beforeEach, describe, it } from 'mocha';
-import { prisma } from './index';
-import { generateTokenForTest } from './helpers/jwt-helpers';
-import { createUserInDb, defaultUser } from './helpers/user-helper';
-import { createAddress, defaultAddress } from './helpers/address-helper';
+import { prisma } from '@test';
 import { expect } from 'chai';
+import { createAddress, createUserInDb, defaultAddress, defaultUser, generateTokenForTest } from '@test/helpers';
 
 describe('Address Creation', () => {
   beforeEach(async () => {

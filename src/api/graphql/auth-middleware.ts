@@ -1,9 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 import { MiddlewareFn, createMethodMiddlewareDecorator } from 'type-graphql';
-import { UnauthorizedError } from '../core/error/unauthorized-error';
-import { ExpressContext } from '../domain/model/express-context-model';
-import { UserModel } from '../domain/model/user-model';
+import { UnauthorizedError } from '@core/error';
+import { ExpressContext, UserModel } from '@domain/model';
 
 const authHandler: MiddlewareFn<ExpressContext> = ({ context }, next) => {
   const authorization = context.req.headers?.authorization;

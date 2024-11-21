@@ -1,6 +1,6 @@
 import { IsInt, IsOptional, Min } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
-import { UserDetailsModel } from '../../../../../domain/model/user-model';
+import { UserDetailsModel } from '@domain/model';
 
 @InputType()
 export class UserDetailsInput implements UserDetailsModel {

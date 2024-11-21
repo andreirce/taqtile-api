@@ -1,6 +1,6 @@
+import { UserNotFoundError } from '@core/error';
+import { UserDbDataSource } from '@data/user/user-db-datasource';
 import { Service } from 'typedi';
-import { UserDbDataSource } from '../../data/user/user-db-datasource';
-import { UserNotFoundError } from '../../core/error/user-not-found-error';
 
 @Service()
 export class findUserUseCase {

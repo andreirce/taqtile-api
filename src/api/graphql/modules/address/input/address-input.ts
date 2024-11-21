@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
-import { AddressInputModel } from '../../../../../domain/model/address-model';
+import { AddressInputModel } from '@domain/model';
 
 @InputType()
 export class AddressInput implements AddressInputModel {

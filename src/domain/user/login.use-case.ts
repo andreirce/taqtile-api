@@ -1,9 +1,10 @@
 import { Service } from 'typedi';
-import { UserDbDataSource } from '../../data/user/user-db-datasource';
-import { LoginInputModel } from '../model/login-model';
-import { LoginError } from '../../core/error/login-error';
-import { comparePassword } from '../../core/security/crypto/crypto';
-import { generateToken } from '../../core/security/jwt/jwt';
+import { LoginError } from '@core/error';
+import { comparePassword } from '@core/security/crypto/crypto';
+import { generateToken } from '@core/security/jwt/jwt';
+import { UserDbDataSource } from '@data/user/user-db-datasource';
+import { LoginInputModel } from '@domain/model';
+
 
 @Service()
 export class LoginUseCase {

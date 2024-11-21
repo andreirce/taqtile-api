@@ -1,6 +1,6 @@
 import { Service } from 'typedi';
-import { dbClient } from '../db/config/db-client';
-import { UserDetailsModel, UserInputModel } from '../../domain/model/user-model';
+import { dbClient } from '@data/db/config/db-client';
+import { UserDetailsModel, UserInputModel } from '@domain/model';
 
 @Service()
 export class UserDbDataSource {

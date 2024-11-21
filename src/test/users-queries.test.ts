@@ -1,8 +1,7 @@
 import { beforeEach, describe, it } from 'mocha';
-import { prisma } from './index';
-import { generateTokenForTest } from './helpers/jwt-helpers';
-import { queryAllUsers } from './helpers/user-helper';
 import { expect } from 'chai';
+import { prisma } from '@test';
+import { generateTokenForTest, queryAllUsers } from './helpers';
 
 describe('testing users query', () => {
   beforeEach(async () => {

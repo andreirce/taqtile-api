@@ -1,5 +1,5 @@
 import { before, after } from 'mocha';
-import { bootstrap } from '../api/graphql/graphql-server';
+import { bootstrap } from '@graphql/graphql-server';
 import { ApolloServer } from '@apollo/server';
 import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';

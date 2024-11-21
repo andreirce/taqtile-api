@@ -1,10 +1,9 @@
 import { Arg, Mutation, Query, Resolver } from 'type-graphql';
 import { AddressInput } from './input/address-input';
-import { IsAuthenticated } from '../../../auth-middleware';
+import { IsAuthenticated } from '@graphql/auth-middleware';
 import { Address } from './type/address-type';
-import { CreateAddressUseCase } from '../../../../domain/address/create-address.use-case';
-import { FindAddressByUserIdUseCase } from '../../../../domain/address/find-address-by-user-id.use-case';
 import { Service } from 'typedi';
+import { CreateAddressUseCase, FindAddressByUserIdUseCase } from '@domain/address';
 @Service()
 @Resolver()
 export class AddressResolver {

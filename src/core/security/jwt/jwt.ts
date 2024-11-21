@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { TokenPayload } from '../../../domain/model/token-payload-model';
+import { TokenPayload } from '@domain/model';
 
 export function generateToken(tokenPayload: TokenPayload): string {
   const { userId, email, rememberMe = false } = tokenPayload;

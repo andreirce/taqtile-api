@@ -1,6 +1,6 @@
-import { Service } from "typedi";
-import { AddressInputModel } from "../../domain/model/address-model";
-import { dbClient } from "../db/config/db-client";
+import { Service } from 'typedi';
+import { AddressInputModel } from '@domain/model';
+import { dbClient } from '@data/db/config/db-client';
 
 
 @Service()

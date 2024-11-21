@@ -1,8 +1,9 @@
-import { Service } from "typedi"
-import { AddressDbDatasource } from "../../data/user/address-db-datasource";
-import { AddressInputModel } from "../model/address-model";
-import { UserDbDataSource } from "../../data/user/user-db-datasource";
-import { UserNotFoundError } from "../../core/error/user-not-found-error";
+import { Service } from 'typedi'
+import { UserNotFoundError } from '@core/error'
+import { AddressDbDatasource } from '@data/user/address-db-datasource'
+import { UserDbDataSource } from '@data/user/user-db-datasource'
+import { AddressInputModel } from '@domain/model'
+
 
 @Service()
 export class CreateAddressUseCase {

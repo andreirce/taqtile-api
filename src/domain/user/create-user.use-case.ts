@@ -1,8 +1,8 @@
 import { Service } from 'typedi';
-import { UserDbDataSource } from '../../data/user/user-db-datasource';
-import { UserInputModel } from '../model/user-model';
-import { UserAlreadyExistsError } from '../../core/error/user-already-exists-error';
-import { hashPassword } from '../../core/security/crypto/crypto';
+import { UserAlreadyExistsError } from '@core/error';
+import { hashPassword } from '@core/security/crypto/crypto';
+import { UserDbDataSource } from '@data/user/user-db-datasource';
+import { UserInputModel } from '@domain/model';
 
 @Service()
 export class CreateUserUseCase {

@@ -4,14 +4,11 @@ import { UserInput } from './input/user-input';
 import { Login } from '../user/type/login-type';
 import { LoginInput } from './input/login-input';
 
-import { IsAuthenticated } from '../../../auth-middleware';
+import { IsAuthenticated } from '@graphql/auth-middleware';
 import { UserDetailsInput } from './input/users-details-input';
 import { UsersPaginated } from './type/users-paginetad-type';
-import { CreateUserUseCase } from '../../../../domain/user/create-user.use-case';
-import { FindAllUsersUseCase } from '../../../../domain/user/find-all-users.use-case';
-import { findUserUseCase } from '../../../../domain/user/find-user.use-case';
-import { LoginUseCase } from '../../../../domain/user/login.use-case';
 import { Service } from 'typedi';
+import { CreateUserUseCase, FindAllUsersUseCase, findUserUseCase, LoginUseCase } from '@domain/user';
 
 @Service()
 @Resolver()

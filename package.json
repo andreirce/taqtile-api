@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/api/graphql/graphql-server.ts",
+    "dev": "nodemon -r tsconfig-paths/register src/api/graphql/graphql-server.ts",
     "start": "ts-node src/api/graphql/graphql-server.ts",
     "test": "dotenv -e .env.test -- mocha",
     "seed": "dotenv -e .env.test -- ts-node src/data/db/seed/seed.ts"
