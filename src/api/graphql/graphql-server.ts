@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+
 import express from 'express';
 
 import { join } from 'path';
@@ -10,7 +11,7 @@ import { HelloWorld } from './modules/hello-world-resolver';
 import { UserResolver } from './modules/user/user-resolver';
 import { customFormatError } from './graphql-error.formatter';
 import { AddressResolver } from './modules/address/address-resolver';
-import Container from 'typedi';
+import { Container } from 'typedi';
 
 const app = express();
 

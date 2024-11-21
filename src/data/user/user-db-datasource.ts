@@ -1,7 +1,6 @@
 import { Service } from 'typedi';
-import { UserDetailsInput } from '../../api/graphql/modules/user/input/users-details-input';
 import { dbClient } from '../db/config/db-client';
-import { UserInputModel } from '../../domain/model/user-model';
+import { UserDetailsModel, UserInputModel } from '../../domain/model/user-model';
 
 @Service()
 export class UserDbDataSource {
@@ -17,7 +16,7 @@ export class UserDbDataSource {
     return dbClient.user.findUnique({ where: { email }, include: { address: true } });
   }
 
-  async findAll(data: UserDetailsInput) {
+  async findAll(data: UserDetailsModel) {
     let skip = 0;
     const limit = data?.limit ?? 10;
     const page = data?.page ?? 1;

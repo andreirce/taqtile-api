@@ -1,12 +1,12 @@
 import { Service } from 'typedi';
-import { UserDetailsInput } from '../../api/graphql/modules/user/input/users-details-input';
 import { UserDbDataSource } from '../../data/user/user-db-datasource';
+import { UserDetailsModel } from '../model/user-model';
 
 @Service()
 export class FindAllUsersUseCase {
   constructor(private readonly datasource: UserDbDataSource) {}
 
-  async exec(input: UserDetailsInput) {
+  async exec(input: UserDetailsModel) {
     return await this.datasource.findAll(input);
   }
 }
