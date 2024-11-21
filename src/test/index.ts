@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client';
 let server: ApolloServer;
 export const prisma = new PrismaClient();
 
-dotenv.config({ path: '../.env.test' });
+dotenv.config({ path: '../../.env.test' });
 
 before(async () => {
   server = await bootstrap(4001);

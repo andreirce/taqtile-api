@@ -8,6 +8,18 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,                                      
     "strictNullChecks": false,                       
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@core": ["./core"],
+      "@core/": ["./core/*"],
+      "@data": ["./data"],
+      "@data/": ["./data/*"],
+      "@domain": ["./domain"],
+      "@domain/": ["./domain/*"],
+      "@graphql": ["./api/graphql"],
+      "@graphql/": ["./api/graphql/*"],
+      "@test": ["./test*"],
+      "@test/": ["./test/*"],
+    }
   }
 }

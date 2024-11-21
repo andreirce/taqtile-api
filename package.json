@@ -4,9 +4,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/api/graphql/graphql-server.ts",
-    "start": "nodemon src/server.ts",
-    "test": "dotenv -e .env.test -- mocha --require nodemon 'test/**/*.ts'",
-    "seed": "dotenv -e .env.test -- nodemon src/utils/seed.ts"
+    "start": "ts-node src/api/graphql/graphql-server.ts",
+    "test": "dotenv -e .env.test -- mocha",
+    "seed": "dotenv -e .env.test -- ts-node src/data/db/seed/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -37,7 +37,7 @@
     "@types/mocha": "10.0.9",
     "@types/sinon": "17.0.3",
     "axios": "1.7.7",
-    "chai": "5.1.1",
+    "chai": "4.4.1",
     "dotenv": "16.4.5",
     "dotenv-cli": "7.4.2",
     "eslint": "9.11.1",
@@ -50,6 +50,7 @@
     "prisma": "5.20.0",
     "sinon": "19.0.2",
     "ts-node": "10.9.2",
+    "tsconfig-paths": "4.2.0",
     "typescript": "5.5.3",
     "typescript-eslint": "8.8.0"
   }

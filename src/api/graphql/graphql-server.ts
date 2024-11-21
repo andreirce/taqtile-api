@@ -7,7 +7,6 @@ import { buildSchema } from 'type-graphql';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 
-import { HelloWorld } from './modules/hello-world-resolver';
 import { UserResolver } from './modules/user/user-resolver';
 import { customFormatError } from './graphql-error.formatter';
 import { AddressResolver } from './modules/address/address-resolver';
@@ -17,7 +16,7 @@ const app = express();
 
 export async function bootstrap(port: number) {
   const schema = await buildSchema({
-    resolvers: [HelloWorld, UserResolver, AddressResolver],
+    resolvers: [UserResolver, AddressResolver],
     emitSchemaFile: join(process.cwd(), 'src/api/graphql/schema.gql'),
     validate: true,
     container: Container,

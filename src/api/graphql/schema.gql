@@ -49,10 +49,9 @@ type Mutation {
 }
 
 type Query {
-  HelloWorld: String!
   findAddressByUserId(userId: String!): [Address!]!
   user(id: String!): User!
-  users(data: UserDetailsInput): UsersPaginatedModel!
+  users(data: UserDetailsInput): UsersPaginated!
 }
 
 type User {
@@ -75,7 +74,7 @@ input UserInput {
   password: String!
 }
 
-type UsersPaginatedModel {
+type UsersPaginated {
   moreAfter: Boolean!
   moreBefore: Boolean!
   users: [User!]!
