@@ -6,7 +6,7 @@ import { LoginInput } from './input/login-input';
 
 import { IsAuthenticated } from '../../../auth-middleware';
 import { UserDetailsInput } from './input/users-details-input';
-import { UsersPaginatedModel } from './type/users-paginetad-type';
+import { UsersPaginated } from './type/users-paginetad-type';
 import { CreateUserUseCase } from '../../../../domain/user/create-user.use-case';
 import { FindAllUsersUseCase } from '../../../../domain/user/find-all-users.use-case';
 import { findUserUseCase } from '../../../../domain/user/find-user.use-case';
@@ -24,7 +24,7 @@ export class UserResolver {
   ) {}
 
   @IsAuthenticated()
-  @Query(() => UsersPaginatedModel)
+  @Query(() => UsersPaginated)
   users(@Arg('data', () => UserDetailsInput, { nullable: true }) data?: UserDetailsInput) {
     return this.findAllUsersUseCase.exec(data);
   }

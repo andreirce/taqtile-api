@@ -1,9 +1,10 @@
 import { Field, ObjectType } from 'type-graphql';
 import { User } from './user-type';
-import { PaginationModel } from '../../../../../core/pagination/pagination-model';
+import { UsersPaginationModel } from '../../../../../domain/model/user-model';
+
 
 @ObjectType()
-export class UsersPaginatedModel implements PaginationModel {
+export class UsersPaginated implements UsersPaginationModel {
   @Field(() => [User])
   users: User[];
 

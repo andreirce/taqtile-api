@@ -16,3 +16,9 @@ export interface UserInputModel {
   password: string;
   bitrhDate?: string;
 }
+
+export interface UsersPaginationModel {
+  users: UserModel[];
+  moreAfter: boolean;
+  moreBefore: boolean;
+}

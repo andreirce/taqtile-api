@@ -6,8 +6,8 @@ import { UserNotFoundError } from '../../core/error/user-not-found-error';
 export class findUserUseCase {
   constructor(private readonly datasource: UserDbDataSource) {}
 
-  async exec(id: string) {
-    const user = await this.datasource.findById(id);
+  async exec(input: string) {
+    const user = await this.datasource.findById(input);
 
     if (!user) {
       throw new UserNotFoundError();

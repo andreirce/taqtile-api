@@ -1,8 +1,9 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
+import { AddressInputModel } from '../../../../../domain/model/address-model';
 
 @InputType()
-export class AddressInput {
+export class AddressInput implements AddressInputModel {
   @Field(() => String)
   @IsNotEmpty({ message: 'O campo de CEP é obrigatório!' })
   cep: string;
