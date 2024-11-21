@@ -1,6 +1,6 @@
 import { Field, ObjectType } from 'type-graphql';
-import { User } from './user-type';
-import { UsersPaginationModel } from '../../../../../domain/model/user-model';
+import { User } from './user-type';import { UsersPaginationModel } from '@domain/model';
+;
 
 
 @ObjectType()

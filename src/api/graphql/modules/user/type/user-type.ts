@@ -1,8 +1,8 @@
+import { UserModel } from '@domain/model';
+import { Address } from '@graphql/modules/address/type/address-type';
 import { Field, ObjectType } from 'type-graphql';
-import { UserModel } from '../../../../../domain/model/user-model';
-import { Address } from '../../address/type/address-type';
 
-//Extends de user model e vai se chamar user, user model será uma inteface
+
 @ObjectType()
 export class User implements UserModel {
   @Field(() => String)

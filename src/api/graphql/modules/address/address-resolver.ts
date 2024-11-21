@@ -4,6 +4,7 @@ import { IsAuthenticated } from '@graphql/auth-middleware';
 import { Address } from './type/address-type';
 import { Service } from 'typedi';
 import { CreateAddressUseCase, FindAddressByUserIdUseCase } from '@domain/address';
+
 @Service()
 @Resolver()
 export class AddressResolver {
