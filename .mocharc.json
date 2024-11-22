@@ -1,0 +1,19 @@
+{
+    "extension": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register",
+      "tsconfig-paths/register",
+      "chai/register-expect.js"
+    ],
+    "file": [
+      "./src/test/index.ts"
+    ],
+    "watch-files": [
+      "src/test/**/*.ts"
+    ],
+    "spec": [
+      "src/test/**/*.ts"
+    ]
+  }

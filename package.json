@@ -2,12 +2,11 @@
   "name": "taqtile-api",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "dev": "tsx --watch src/server.ts",
-    "start": "tsx src/server.ts",
-    "test": "dotenv -e .env.test -- mocha --require tsx 'test/**/*.ts'",
-    "seed": "dotenv -e .env.test -- tsx src/utils/seed.ts"
+    "dev": "nodemon -r tsconfig-paths/register src/api/graphql/graphql-server.ts",
+    "start": "ts-node src/api/graphql/graphql-server.ts",
+    "test": "dotenv -e .env.test -- mocha",
+    "seed": "dotenv -e .env.test -- ts-node src/data/db/seed/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -26,7 +25,8 @@
     "jsonwebtoken": "9.0.2",
     "reflect-metadata": "0.2.2",
     "ruru": "2.0.0-beta.13",
-    "type-graphql": "2.0.0-rc.2"
+    "type-graphql": "2.0.0-rc.2",
+    "typedi": "0.10.0"
   },
   "devDependencies": {
     "@eslint/js": "9.11.1",
@@ -37,17 +37,20 @@
     "@types/mocha": "10.0.9",
     "@types/sinon": "17.0.3",
     "axios": "1.7.7",
-    "chai": "5.1.1",
+    "chai": "4.4.1",
     "dotenv": "16.4.5",
     "dotenv-cli": "7.4.2",
     "eslint": "9.11.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
     "mocha": "10.7.3",
+    "node-dev": "8.0.0",
+    "nodemon": "3.1.7",
     "prettier": "3.3.3",
     "prisma": "5.20.0",
     "sinon": "19.0.2",
-    "tsx": "4.19.1",
+    "ts-node": "10.9.2",
+    "tsconfig-paths": "4.2.0",
     "typescript": "5.5.3",
     "typescript-eslint": "8.8.0"
   }
