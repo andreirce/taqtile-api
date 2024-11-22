@@ -4,7 +4,7 @@ import { UserWithAddressModel } from '@domain/model';
 import { Service } from 'typedi';
 
 @Service()
-export class findUserUseCase {
+export class FindUserUseCase {
   constructor(private readonly datasource: UserDbDataSource) {}
 
   async exec(input: string): Promise<UserWithAddressModel> {
