@@ -18,6 +18,7 @@ type AddressModel {
   cep: String!
   city: String!
   complement: String
+  id: String!
   neighborhood: String!
   state: String!
   street: String!

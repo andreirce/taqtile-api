@@ -1,6 +1,6 @@
 import { beforeEach, describe } from 'mocha';
 import { prisma } from './index';
-import { createAdminUser, createUserForTest, defaultUser, queryUserById } from './helpers/user-helper';
+import { createAdminUser, createUserInDb, defaultUser, queryUserById } from './helpers/user-helper';
 import { generateTokenForTest } from './helpers/jwt-helpers';
 import { expect } from 'chai';
 
@@ -11,16 +11,18 @@ describe('Testing User Queries', () => {
 
   it('should allow an authenticated user to use the FindUserById query', async () => {
     const token = await generateTokenForTest();
-    const { data: response } = await createUserForTest(defaultUser, token);
+    // const { data: user } = await createUserForTest(defaultUser, token);
+    const user = await createUserInDb(defaultUser);
 
-    const { data: query } = await queryUserById(response.id, token);
+    const { data: query } = await queryUserById(user.id, token);
 
-    expect(query.id).to.be.equal(response.id);
-    expect(query.name).to.be.equal(response.name);
-    expect(query.email).to.be.equal(response.email);
+    expect(query.id).to.be.equal(user.id);
+    expect(query.name).to.be.equal(user.name);
+    expect(query.email).to.be.equal(user.email);
     expect(query.birthDate).to.be.equal(null);
+    expect(query.address).to.be.an('array');
+    expect(query.address.length).to.be.equal(0);
   });
-
   it('should verify that an authenticated user tries to insert an invalid ID', async () => {
     const token = await generateTokenForTest();
 

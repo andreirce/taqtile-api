@@ -19,6 +19,10 @@ export async function createAdminUser() {
   return await prisma.user.create({ data: adminUser });
 }
 
+export async function createUserInDb(userData: UserInput) {
+  return await prisma.user.create({ data: userData, include: { address: true } });
+}
+
 export async function createUserForTest(userData: UserInput, token: string | null) {
   const createUserMutation = `
       mutation CreateUser($data: UserInput!) {
@@ -26,6 +30,17 @@ export async function createUserForTest(userData: UserInput, token: string | nul
           id
           name
           email
+          address {
+            city
+            cep
+            complement
+            id
+            neighborhood
+            state
+            street
+            streetNumber
+            userId
+          }
         }
       }
     `;
@@ -78,6 +93,17 @@ export async function queryUserById(id: string, token: string | null) {
     name
     email
     birthDate
+     address {
+        city
+        cep
+        complement
+        id
+        neighborhood
+        state
+        street
+        streetNumber
+        userId
+     }
   }
 }
   `;
@@ -108,6 +134,17 @@ export async function queryAllUsers(pageData: UsersDetailsInput, token: string |
         name
         email
         birthDate
+        address {
+        city
+        cep
+        complement
+        id
+        neighborhood
+        state
+        street
+        streetNumber
+        userId
+     }
       }
       moreAfter
       moreBefore
