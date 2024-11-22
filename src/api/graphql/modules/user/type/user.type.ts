@@ -1,5 +1,5 @@
 import { UserModel } from '@domain/model';
-import { Address } from '@graphql/modules/address/type/address-type';
+import { Address } from '@graphql/modules/address/type/address.type';
 import { Field, ObjectType } from 'type-graphql';
 
 

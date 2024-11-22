@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { TokenPayload } from '@domain/model';
+import { TokenPayload } from '@graphql/token-payload.model';
 
 export function generateToken(tokenPayload: TokenPayload): string {
   const { userId, email, rememberMe = false } = tokenPayload;

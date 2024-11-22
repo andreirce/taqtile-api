@@ -7,9 +7,9 @@ import { buildSchema } from 'type-graphql';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 
-import { UserResolver } from '@graphql/modules/user/user-resolver';
+import { UserResolver } from '@graphql/modules/user/user.resolver';
 import { customFormatError } from '@graphql/graphql-error.formatter';
-import { AddressResolver } from '@graphql/modules/address/address-resolver';
+import { AddressResolver } from '@graphql/modules/address/address.resolver';
 import { Container } from 'typedi';
 
 const app = express();

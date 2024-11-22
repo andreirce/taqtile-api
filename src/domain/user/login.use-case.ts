@@ -2,15 +2,15 @@ import { Service } from 'typedi';
 import { LoginError } from '@core/error';
 import { comparePassword } from '@core/security/crypto/crypto';
 import { generateToken } from '@core/security/jwt/jwt';
-import { UserDbDataSource } from '@data/user/user-db-datasource';
-import { LoginInputModel } from '@domain/model';
+import { UserDbDataSource } from '@data/user/user.db.datasource';
+import { LoginInputModel, LoginModel } from '@domain/model';
 
 
 @Service()
 export class LoginUseCase {
   constructor(private readonly datasource: UserDbDataSource) {}
 
-  async exec(input: LoginInputModel) {
+  async exec(input: LoginInputModel): Promise<LoginModel> {
     const user = await this.datasource.findByEmail(input.email);
 
     if (!user) {

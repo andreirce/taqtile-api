@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { UserInput } from '@graphql/modules/user/input/user-input';
-import { UserDetailsInput } from '@graphql/modules/user/input/users-details-input';
+import { UserInput } from '@graphql/modules/user/input/user.input';
+import { UserDetailsInput } from '@graphql/modules/user/input/users-details.input';
 import { prisma } from '@test/index';
 
 
