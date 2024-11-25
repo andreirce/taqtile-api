@@ -23,7 +23,9 @@ export class UserResolver {
 
   @IsAuthenticated()
   @Query(() => UsersPaginated)
-  users(@Arg('data', () => UserDetailsInput, { nullable: true }) data?: UserDetailsInput): Promise<UsersPaginationModel> {
+  users(
+    @Arg('data', () => UserDetailsInput, { nullable: true }) data?: UserDetailsInput,
+  ): Promise<UsersPaginationModel> {
     return this.findAllUsersUseCase.exec(data);
   }
 
