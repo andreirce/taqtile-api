@@ -11,6 +11,7 @@ import { UserResolver } from '@graphql/modules/user/user.resolver';
 import { customFormatError } from '@graphql/graphql-error.formatter';
 import { AddressResolver } from '@graphql/modules/address/address.resolver';
 import { Container } from 'typedi';
+import { graphqlUploadExpress } from 'graphql-upload-ts';
 
 const app = express();
 
@@ -29,6 +30,8 @@ export async function bootstrap(port: number) {
   });
 
   await server.start();
+
+  app.use(graphqlUploadExpress());
 
   app.use(
     '/graphql',
