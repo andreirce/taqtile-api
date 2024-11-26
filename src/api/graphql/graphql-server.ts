@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import express from 'express';
+import cors from 'cors';
 
 import { join } from 'path';
 import { buildSchema } from 'type-graphql';
@@ -27,6 +28,7 @@ export async function bootstrap(port: number) {
     schema,
     includeStacktraceInErrorResponses: false,
     formatError: customFormatError,
+    csrfPrevention: false,
   });
 
   await server.start();
@@ -35,6 +37,7 @@ export async function bootstrap(port: number) {
 
   app.use(
     '/graphql',
+    cors(),
     express.json(),
     expressMiddleware(server, {
       context: async ({ req }) => ({ req }),
