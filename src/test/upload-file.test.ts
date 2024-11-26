@@ -30,8 +30,8 @@ describe('Upload file test', () => {
   });
 
   it('should return an authentication error when trying to upload without providing a token', async () => {
-    const invalidFile = fs.createReadStream('src/test/fixtures/invalid-file-example.txt', 'utf-8');
-    const { errors: errorResponse } = await uploadFileForTest(invalidFile, null);
+    const file = fs.createReadStream('src/test/fixtures/users-example-csv.csv', 'utf-8');
+    const { errors: errorResponse } = await uploadFileForTest(file, null);
 
     expect(errorResponse[0].message).to.be.equal('O token não foi fornecido ou está mal formatado.');
     expect(errorResponse[0].code).to.be.equal(401);
