@@ -36,6 +36,5 @@ export async function uploadFileForTest(file: ReadStream, token: string | null) 
 
   const response = await axios.post('http://localhost:4001/graphql', formData, { headers });
 
-  console.log(response.data);
   return { data: response.data.data?.uploadCsv, errors: response.data.errors };
 }
