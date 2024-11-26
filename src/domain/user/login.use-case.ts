@@ -5,7 +5,6 @@ import { generateToken } from '@core/security/jwt/jwt';
 import { UserDbDataSource } from '@data/user/user.db.datasource';
 import { LoginInputModel, LoginModel } from '@domain/model';
 
-
 @Service()
 export class LoginUseCase {
   constructor(private readonly datasource: UserDbDataSource) {}
