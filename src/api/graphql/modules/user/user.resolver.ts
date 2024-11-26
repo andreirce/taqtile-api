@@ -38,6 +38,7 @@ export class UserResolver {
     return this.findUserUseCase.exec(id);
   }
 
+  @IsAuthenticated()
   @Mutation(() => String)
   async uploadCsv(@Arg('file', () => GraphQLUpload) file: FileUpload): Promise<string> {
     await this.processCsvUseCase.exec(file);
