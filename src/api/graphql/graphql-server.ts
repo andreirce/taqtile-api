@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import express from 'express';
+import cors from 'cors';
 
 import { join } from 'path';
 import { buildSchema } from 'type-graphql';
@@ -11,6 +12,7 @@ import { UserResolver } from '@graphql/modules/user/user.resolver';
 import { customFormatError } from '@graphql/graphql-error.formatter';
 import { AddressResolver } from '@graphql/modules/address/address.resolver';
 import { Container } from 'typedi';
+import { graphqlUploadExpress } from 'graphql-upload-ts';
 
 const app = express();
 
@@ -26,12 +28,16 @@ export async function bootstrap(port: number) {
     schema,
     includeStacktraceInErrorResponses: false,
     formatError: customFormatError,
+    csrfPrevention: false,
   });
 
   await server.start();
 
+  app.use(graphqlUploadExpress());
+
   app.use(
     '/graphql',
+    cors(),
     express.json(),
     expressMiddleware(server, {
       context: async ({ req }) => ({ req }),

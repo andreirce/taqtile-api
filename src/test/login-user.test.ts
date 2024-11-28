@@ -5,8 +5,6 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { hashPassword } from '@core/security/crypto/crypto';
 import { loginUserForTest } from '@test/helpers';
 
-
-
 describe('Login Test', () => {
   before(async () => {
     await prisma.user.deleteMany();

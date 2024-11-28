@@ -3,7 +3,6 @@ import { UserInput } from '@graphql/modules/user/input/user.input';
 import { UserDetailsInput } from '@graphql/modules/user/input/users-details.input';
 import { prisma } from '@test/index';
 
-
 export const defaultUser = {
   name: 'teste1',
   email: 'teste1@gmail.com',
