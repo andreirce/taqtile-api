@@ -4,7 +4,7 @@ import FormData from 'form-data';
 
 export async function uploadFileForTest(file: ReadStream, token: string | null) {
   const uploadFileMutation = `
-    mutation UploadCsv($file: Upload!) {
+    mutation createUsersWithCsv($file: Upload!) {
       uploadCsv(file: $file)
     }
   `;
@@ -36,5 +36,5 @@ export async function uploadFileForTest(file: ReadStream, token: string | null) 
 
   const response = await axios.post('http://localhost:4001/graphql', formData, { headers });
 
-  return { data: response.data.data?.uploadCsv, errors: response.data.errors };
+  return { data: response.data.data?.createUsersWithCsv, errors: response.data.errors };
 }

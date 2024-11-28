@@ -45,8 +45,8 @@ input LoginInput {
 type Mutation {
   createAddress(data: AddressInput!): Address!
   createUser(data: UserInput!): User!
+  createUsersWithCsv(file: Upload!): String!
   login(data: LoginInput!): Login!
-  uploadCsv(file: Upload!): String!
 }
 
 type Query {
