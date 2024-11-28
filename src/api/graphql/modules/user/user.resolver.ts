@@ -40,7 +40,7 @@ export class UserResolver {
 
   @IsAuthenticated()
   @Mutation(() => String)
-  async uploadCsv(@Arg('file', () => GraphQLUpload) file: FileUpload): Promise<string> {
+  async createUsersWithCsv(@Arg('file', () => GraphQLUpload) file: FileUpload): Promise<string> {
     await this.processCsvUseCase.exec(file);
     return 'Arquivo processado com sucesso!';
   }
