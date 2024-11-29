@@ -11,7 +11,7 @@ import { Service } from 'typedi';
 import { CreateUserUseCase, FindAllUsersUseCase, FindUserUseCase, LoginUseCase } from '@domain/user';
 import { LoginModel, UsersPaginationModel } from '@domain/model';
 import { FileUpload, GraphQLUpload } from 'graphql-upload-ts';
-import { ProcessCsvUseCase } from '@domain/user/process-csv.use-case';
+import { CreateUserWithCsvUseCase } from '@domain/user/create-user-with-csv.use-case';
 
 @Service()
 @Resolver()
@@ -21,7 +21,7 @@ export class UserResolver {
     private readonly findAllUsersUseCase: FindAllUsersUseCase,
     private readonly findUserUseCase: FindUserUseCase,
     private readonly loginUseCase: LoginUseCase,
-    private readonly processCsvUseCase: ProcessCsvUseCase,
+    private readonly createUserWithCsvUseCase: CreateUserWithCsvUseCase,
   ) {}
 
   @IsAuthenticated()
@@ -41,7 +41,7 @@ export class UserResolver {
   @IsAuthenticated()
   @Mutation(() => String)
   async createUsersWithCsv(@Arg('file', () => GraphQLUpload) file: FileUpload): Promise<string> {
-    await this.processCsvUseCase.exec(file);
+    await this.createUserWithCsvUseCase.exec(file);
     return 'Usuários criados com sucesso!';
   }
 

@@ -2,10 +2,10 @@ import axios from 'axios';
 import { ReadStream } from 'node:fs';
 import FormData from 'form-data';
 
-export async function uploadFileForTest(file: ReadStream, token: string | null) {
+export async function createUserCsvForTest(file: ReadStream, token: string | null) {
   const uploadFileMutation = `
     mutation createUsersWithCsv($file: Upload!) {
-      uploadCsv(file: $file)
+      createUsersWithCsv(file: $file)
     }
   `;
 
