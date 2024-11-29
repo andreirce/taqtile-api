@@ -38,7 +38,7 @@ describe('Create Users with CSV test', () => {
   });
 
   it('should return an error when required fields are missing in the CSV file', async () => {
-    const token = await generateTokenForTest()
+    const token = await generateTokenForTest();
     const file = fs.createReadStream('src/test/fixtures/missing-fields-example.csv', 'utf-8');
     const { errors: errorResponse } = await createUserCsvForTest(file, token);
 
@@ -47,15 +47,15 @@ describe('Create Users with CSV test', () => {
   });
 
   it('should return an error when trying to create a user already exists in the database', async () => {
-    const token = await generateTokenForTest()
+    const token = await generateTokenForTest();
 
     const user = {
       name: 'User One',
       email: 'test1@example.com',
       password: 'password123',
-    }
+    };
 
-    await prisma.user.create({ data: user })
+    await prisma.user.create({ data: user });
 
     const file = fs.createReadStream('src/test/fixtures/users-example-csv.csv', 'utf-8');
     const { errors: errorResponse } = await createUserCsvForTest(file, token);
