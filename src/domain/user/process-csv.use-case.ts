@@ -21,7 +21,7 @@ export class ProcessCsvUseCase {
     }
 
     const readStream = file.createReadStream();
-    const csvData = (await this.csvService.parseCsv(readStream)) as UserInputModel[];
+    const csvData = await this.csvService.parseCsv(readStream) as UserInputModel[];
 
     const usersToCreate = await Promise.all(csvData.map((row) => this.processUserData(row)));
 
@@ -29,7 +29,7 @@ export class ProcessCsvUseCase {
   }
 
   private async processUserData(row: UserInputModel) {
-    const { name, email, password, bitrhDate } = row;
+    const { name, email, password, birthDate } = row;
 
     if (!name || !email || !password) {
       throw new InvalidInputCsvError(`Dados inválidos no CSV: nome, email e senha são obrigatórios.`);
@@ -38,14 +38,14 @@ export class ProcessCsvUseCase {
     const existingUser = await this.datasource.findByEmail(email);
 
     if (existingUser) {
-      throw new UserAlreadyExistsError(`O usuário ${email} ja está registrado!`);
+      throw new UserAlreadyExistsError(`O usuário ${email} já está registrado!`);
     }
 
     return {
       name,
       email,
       password: await hashPassword(password),
-      birthDate: bitrhDate ? new Date(bitrhDate) : null,
+      birthDate: birthDate ? new Date(birthDate) : null,
     };
   }
 }
