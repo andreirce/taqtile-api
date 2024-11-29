@@ -9,7 +9,7 @@ import { UserDbDataSource } from '@data/user/user.db.datasource';
 import { UserAlreadyExistsError } from '@core/error';
 
 @Service()
-export class ProcessCsvUseCase {
+export class CreateUserWithCsvUseCase {
   constructor(
     private readonly csvService: CsvService,
     private readonly datasource: UserDbDataSource,
@@ -32,7 +32,7 @@ export class ProcessCsvUseCase {
     const { name, email, password, birthDate } = row;
 
     if (!name || !email || !password) {
-      throw new InvalidInputCsvError(`Dados inválidos no CSV: nome, email e senha são obrigatórios.`);
+      throw new InvalidInputCsvError('Dados inválidos no CSV: nome, email e senha são obrigatórios.');
     }
 
     const existingUser = await this.datasource.findByEmail(email);
