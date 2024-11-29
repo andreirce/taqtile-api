@@ -21,7 +21,7 @@ export class CreateUserWithCsvUseCase {
     }
 
     const readStream = file.createReadStream();
-    const csvData = await this.csvService.parseCsv(readStream) as UserInputModel[];
+    const csvData = (await this.csvService.parseCsv(readStream)) as UserInputModel[];
 
     const usersToCreate = await Promise.all(csvData.map((row) => this.processUserData(row)));
 
