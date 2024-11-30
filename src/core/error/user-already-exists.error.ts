@@ -1,7 +1,7 @@
 import { CustomError } from './custom.error';
 
 export class UserAlreadyExistsError extends CustomError {
-  constructor() {
-    super(409, 'Usuário já existe.');
+  constructor(message?: string) {
+    super(409, message ? message : 'Usuário já existe.');
   }
 }

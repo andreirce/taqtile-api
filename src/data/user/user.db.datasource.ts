@@ -8,6 +8,10 @@ export class UserDbDataSource {
     return dbClient.user.create({ data, include: { address: true } });
   }
 
+  createMany(data: UserInputModel[]) {
+    return dbClient.user.createMany({ data, skipDuplicates: true });
+  }
+
   findById(id: string): Promise<UserWithAddressModel> {
     return dbClient.user.findUnique({ where: { id }, include: { address: true } });
   }
