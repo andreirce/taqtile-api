@@ -15,7 +15,7 @@ export class CreateUserWithCsvUseCase {
     private readonly datasource: UserDbDataSource,
   ) {}
 
-  async exec(file: FileUpload) {
+  async exec(file: FileUpload): Promise<void> {
     if (file.mimetype !== 'text/csv') {
       throw new InvalidFileError('Somente arquivos CSV são permitidos!');
     }
@@ -23,12 +23,12 @@ export class CreateUserWithCsvUseCase {
     const readStream = file.createReadStream();
     const csvData = (await this.csvService.parseCsv(readStream)) as UserInputModel[];
 
-    const usersToCreate = await this.processUsersInBatches(csvData, 20)
+    const usersToCreate = await this.processUsersInBatches(csvData, 20);
 
     await this.datasource.createMany(usersToCreate);
   }
 
-  private async processUserData(row: UserInputModel) {
+  private async processUserData(row: UserInputModel): Promise<UserInputModel> {
     const { name, email, password, birthDate } = row;
 
     if (!name || !email || !password) {
@@ -49,16 +49,15 @@ export class CreateUserWithCsvUseCase {
     };
   }
 
-  private async processUsersInBatches(csvData: UserInputModel[], batches: number) {
+  private async processUsersInBatches(csvData: UserInputModel[], batches: number): Promise<UserInputModel[]> {
+    const processedUsers: UserInputModel[] = [];
 
-    const processedUsers = []
-
-    for(let i = 0; i < csvData.length; i += batches) {
-      const batchUsers = csvData.slice(i, i + batches)
-      const processedBatch = await Promise.all(batchUsers.map((user) => this.processUserData(user)))
-      processedUsers.push(...processedBatch)
+    for (let i = 0; i < csvData.length; i += batches) {
+      const batchUsers = csvData.slice(i, i + batches);
+      const processedBatch = await Promise.all(batchUsers.map((user) => this.processUserData(user)));
+      processedUsers.push(...processedBatch);
     }
 
-    return processedUsers
+    return processedUsers;
   }
 }
