@@ -23,7 +23,7 @@ export class CreateUserWithCsvUseCase {
     const readStream = file.createReadStream();
     const csvData = (await this.csvService.parseCsv(readStream)) as UserInputModel[];
 
-    const usersToCreate = await Promise.all(csvData.map((row) => this.processUserData(row)));
+    const usersToCreate = await this.processUsersInBatches(csvData, 20)
 
     await this.datasource.createMany(usersToCreate);
   }
@@ -47,5 +47,18 @@ export class CreateUserWithCsvUseCase {
       password: await hashPassword(password),
       birthDate: birthDate ? new Date(birthDate) : null,
     };
+  }
+
+  private async processUsersInBatches(csvData: UserInputModel[], batches: number) {
+
+    const processedUsers = []
+
+    for(let i = 0; i < csvData.length; i += batches) {
+      const batchUsers = csvData.slice(i, i + batches)
+      const processedBatch = await Promise.all(batchUsers.map((user) => this.processUserData(user)))
+      processedUsers.push(...processedBatch)
+    }
+
+    return processedUsers
   }
 }
